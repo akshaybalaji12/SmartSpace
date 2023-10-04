@@ -13,10 +13,11 @@ class AuthController {
     let response;
     if(typeof result === 'string') {
       response = new Response(400, result);
+      res.send(response).status(400);
     } else {
       response = new Response(201, result);
+      res.send(response).status(201);
     }
-    return res.send(response).status(201);
   };
 
   loginUser = async (req, res) => {

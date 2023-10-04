@@ -8,11 +8,12 @@ class UserService {
   
     getUserDetail =  async(userID) => {
         let collection = await database.collection("users");
-        let query = { _id: new ObjectId(userID)};
+        let query = { _id: new ObjectId(userID) };
         let user = await collection.findOne(query);
-        const response = new Response(200, user);
-        console.log(response)
-        return response;
+        if(user) {
+            return user
+        }
+        return "User not found!";
     };
     
   }

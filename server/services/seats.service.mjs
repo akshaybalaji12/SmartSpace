@@ -31,10 +31,10 @@ class SeatService {
         let seats = await collection.find({ 
             "date": date
         }).toArray();
-        if(seats) {
+        if(seats && seats.length > 0) {
             return seats
         } else {
-            return ""
+            return "No bookings for date"
         }
     };
     

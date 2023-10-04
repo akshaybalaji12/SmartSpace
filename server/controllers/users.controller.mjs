@@ -1,3 +1,5 @@
+import Response from '../models/response.model.mjs';
+
 class UserController {
   constructor(userService) {
     this.userService = userService;
@@ -5,11 +7,13 @@ class UserController {
 
   getUserDetail = async (req, res) => {
     let result = await this.userService.getUserDetail(req.params.id);
-    console.log(result)
-    if(result) {
-        res.send(result).status(200);
+    let response;
+    if(typeof result === 'string') {
+      response = new Response(400, {}, result);
+      res.send(response).status(400);
     } else {
-        res.send("No user found").status(404);
+      response = new Response(200, result);
+      res.send(response).status(200);
     }
   }
 
