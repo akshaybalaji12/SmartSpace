@@ -5,8 +5,8 @@ class MetadataController {
     this.metadataService = metadataService;
   }
 
-  getEmployees = async (req, res) => {
-    let result = await this.metadataService.getEmployees();
+  getFloorPlan = async (req, res) => {
+    let result = await this.metadataService.getFloorPlan();
     const response = new Response(200, result);
     res.send(response).status(200);
   }

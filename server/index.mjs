@@ -7,6 +7,7 @@ import userModule from './modules/users.module.mjs';
 import authModule from './modules/auth.module.mjs';
 import seatModule from './modules/seats.module.mjs';
 import metadataModule from './modules/metadata.module.mjs';
+import visitorsModule from './modules/visitors.module.mjs';
 
 const PORT = process.env.PORT || 6969;
 const app = express();
@@ -18,6 +19,7 @@ app.use("/user", userModule.router);
 app.use("/auth", authModule.router);
 app.use("/seat", seatModule.router);
 app.use("/metadata", metadataModule.router);
+app.use("/visitor", visitorsModule.router);
 
 app.use((err, _req, res, next) => {
     res.status(500).send("Uh oh! An unexpected error occured.")

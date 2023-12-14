@@ -1,24 +1,31 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
-import { ColorModes } from '../utils/constants';
+import { COLOR_MODES } from '../utils/constants';
 import { connect } from 'react-redux';
 
-export const InputField = (props) => {
+const InputField = ({ 
+    value, placeholder, onInputChange, secureTextEntry, 
+    keyboardType = 'default', onFocus = () => {}, onBlur = () => {}, inputHeight = 50,
+    isError = false, maxLength = undefined, ...props }) => {
 
-    const { value, placeholder, onInputChange, secureTextEntry } = props;
+    const theme = props.isDarkMode ? COLOR_MODES.dark : COLOR_MODES.light;
 
     return (
-        <View style={styles.inputContainer}>
+        <View style={[ styles.inputContainer, { height: inputHeight, borderColor: isError ? theme.error : theme.primary }]}>
             <TextInput 
                 value={value}
                 onChangeText={(value) => onInputChange(value)}
-                style={{ flex: 1, color: props.isDarkMode ? ColorModes.dark.white : ColorModes.light.white }}
+                style={{ flex: 1, color: theme.white }}
                 placeholder={placeholder}
-                placeholderTextColor= {props.isDarkMode ? ColorModes.dark.whiteRGB : ColorModes.light.whiteRGB}
+                placeholderTextColor= {props.isDarkMode ? COLOR_MODES.dark.whiteRGB : COLOR_MODES.light.whiteRGB}
                 fontFamily='ProductSansBold'
                 allowFontScaling={false}
                 autoCorrect={false}
                 secureTextEntry={secureTextEntry}
+                keyboardType={keyboardType}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                maxLength={maxLength}
             />
         </View>
     )
@@ -40,12 +47,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 2,
-        borderColor: ColorModes.dark.primary,
-        height: 50,
-        borderRadius: 25,
-        margin: 15,
-        paddingHorizontal: 10,
-        paddingVertical: 5
+        borderWidth: 1,
+        borderColor: COLOR_MODES.dark.primary,
+        borderRadius: 10,
+        marginVertical: 12,
+        paddingHorizontal: 10
     }
 })

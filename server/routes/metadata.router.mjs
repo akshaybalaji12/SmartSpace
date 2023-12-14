@@ -7,7 +7,8 @@ class MetadataRouter {
 
   getRouter() {
     const router = express.Router();
-    router.get("/employees", this.metadataController.getEmployees);
+    //router.get("/employers", this.metadataController.getEmployers);
+    router.get("/floorPlan", this.metadataController.getFloorPlan)
     return router;
   }
 }

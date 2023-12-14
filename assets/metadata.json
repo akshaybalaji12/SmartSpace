@@ -1,0 +1,109 @@
+{
+    "id": "",
+    "floors": [
+        {
+            "level": "4",
+            "zones": [
+                {
+                    "zone": "A",
+                    "totalSeats": 100,
+                    "structure": "rectangle",
+                    "row": 10,
+                    "column": 10
+                },
+                {
+                    "zone": "B",
+                    "totalSeats": 200,
+                    "structure": "table",
+                    "row": 4,
+                    "column": 3,
+                    "seats": 8
+                }
+            ]
+        },
+        {
+            "level": "6",
+            "zones": [
+                {
+                    "zone": "A",
+                    "totalSeats": 100,
+                    "structure": "rectangle",
+                    "row": 10,
+                    "column": 10
+                },
+                {
+                    "zone": "B",
+                    "totalSeats": 120,
+                    "structure": "rectangle",
+                    "row": 12,
+                    "column": 10,
+                    "seats": 8
+                }
+            ]
+        },
+        {
+            "level": "11",
+            "zones": [
+                {
+                    "zone": "A",
+                    "totalSeats": 120,
+                    "structure": "rectangle",
+                    "row": 12,
+                    "column": 10
+                },
+                {
+                    "zone": "B",
+                    "totalSeats": 160,
+                    "structure": "table",
+                    "row": 5,
+                    "column": 4,
+                    "seats": 8
+                }
+            ]
+        }
+    ]
+}
+
+0-9 A-F
+
+R4A0
+T11
+
+SeatType  Floor   Zone  SeatRow     SeatColumn
+R | T     Number  A-E   0-9 | A-F   0-9 | A-F
+
+
+x x x x x x x x x                                                                    
+- - - - - - - - -
+x x x x x x x x x
+- - - - - - - - - 
+x x x x x x x x x
+- - - - - - - - - 
+x x x x x x x x x
+- - - - - - - - - 
+x x x x x x x x x
+- - - - - - - - - 
+x x x x x x x x x
+- - - - - - - - - 
+x x x x x x x x x 
+
+
+
+
+x x x x   x x x x
+- - - -   - - - - 
+x x x x   x x x x
+
+
+x x x x   x x x x
+- - - -   - - - - 
+x x x x   x x x x
+
+
+x x x x   x x x x
+- - - -   - - - - 
+x x x x   x x x x 
+
+
+
+

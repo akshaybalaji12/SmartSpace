@@ -7,7 +7,9 @@ class UserRouter {
 
   getRouter() {
     const router = express.Router();
-    router.get("/:id", this.userController.getUserDetail);
+    router.get("/:userID", this.userController.getUserDetail);
+    router.get("/getDelegates/:userID", this.userController.getDelegateDetails);
+    router.get("/getStatistics/:userID", this.userController.getStatistics);
     return router;
   }
 }

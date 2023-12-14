@@ -7,8 +7,8 @@ class SeatController {
   }
 
   getSeats = async (req, res) => {
-    const { date } = req.params;
-    let result = await this.seatService.getSeats(date);
+    const { dates, floorNo, zone } = req.body;
+    let result = await this.seatService.getSeats(dates, floorNo, zone);
     let response;
     if(typeof result === 'string') {
         response = new Response(400, {}, result);
@@ -20,16 +20,21 @@ class SeatController {
   }
 
   bookSeat = async (req, res) => {
-    const { userID, floorNo, zone, seatNo, date } = req.body;
-    const seat = new Seat(userID, floorNo, zone, seatNo, date);
-    let result = await this.seatService.bookSeat(seat);
+    const { userID, floorNo, zone, seatNo, dates } = req.body;
+    let seatArray = [];
+    dates.forEach(date => {
+       let seat = new Seat(userID, floorNo, zone, seatNo, date);
+       seatArray.push(seat);
+    });
+    let result = await this.seatService.bookSeat(seatArray);
     let response;
-    if(result.indexOf("later") >= -1) {
-      response = new Response(400, result);
-    } else {
+    if(result.indexOf("success") >= -1) {
       response = new Response(201, result);
+      res.send(response).status(201);
+    } else {
+      response = new Response(400, result);
+      res.send(response).status(400);
     }
-    return res.send(response).status(201);
   };
 
   getBookings = async (req, res) => {
@@ -44,6 +49,19 @@ class SeatController {
         res.send(response).status(200);
     }
   }
+
+  modifyBooking = async (req, res) => {
+    const { type, booking } = req.body;
+    let result = await this.seatService.modifyBooking(type, booking);
+    let response;
+    if(result.indexOf("Booking") >= -1) {
+      response = new Response(201, result);
+      res.send(response).status(201);
+    } else {
+      response = new Response(400, result);
+      res.send(response).status(400);
+    }
+  };
 
 }
 

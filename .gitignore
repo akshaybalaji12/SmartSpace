@@ -66,6 +66,5 @@ yarn-error.log
 /coverage
 
 #server
-
 /server/node_modules
 /server/.env

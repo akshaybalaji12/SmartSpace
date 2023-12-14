@@ -1,57 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
-import { connect } from 'react-redux';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { connect, useSelector } from 'react-redux';
 import * as actions from '../actions';
-import { ColorModes, width, height } from '../utils/constants';
+import { COLOR_MODES, width, height } from '../utils/constants';
 import InputField from '../components/InputField';
 import { Button } from '../components/Button';
+import { ActivityLoader } from '../components/ActivityLoader';
+import Animated, { getUseOfValueInStyleWarning } from 'react-native-reanimated'
 
 const LoginScreen = (props) => {
 
-    useEffect(() => {
-        if(props.isLoggedIn) {
-            props.navigation.replace('Home');            
-        }
-    }, []);
-
-    const [userName, setUserName] = useState('');
+    const [userID, setUserID] = useState('');
     const [password, setPassword] = useState('');
-
-    const theme = props.isDarkMode ? ColorModes.dark : ColorModes.light;
-    const settingsIcon = require('../../img/settings_white.png');
     
-    const onSettingsPressed = () => {
-        props.navigation.navigate('Settings');
+    const [isVisible, setVisible] = useState(true);
+
+    const theme = props.isDarkMode ? COLOR_MODES.dark : COLOR_MODES.light;
+
+    const onFocus = () => {
+        setVisible(false);
+    }
+
+    const onBlur = () => {
+        setVisible(true);
     }
 
     const onUserNameChange = (value) => {
-        setUserName(value);
+        props.clearError();
+        setUserID(value);
     }
 
     const onPasswordChange = (value) => {
+        props.clearError();
         setPassword(value);
     }
 
     const onLogin = () => {
-        if(userName === 'akshay' && password === 'akshay') {
-            props.setLoggedIn(true);
-            props.navigation.replace('Home');
+        Keyboard.dismiss();
+        const userParams = {
+            userID: userID,
+            password: password
         }
+        props.requestLogin(userParams);
+    }
+
+    const onSignUp = () => {
+        props.navigation.navigate('SignUp');
     }
 
     return (
-        <View style={styles(theme).container}>
-            <TouchableOpacity onPress={onSettingsPressed} style={styles(theme).imgContainer}>
-                <Image source={settingsIcon} style={styles(theme).image}/>
-            </TouchableOpacity>
-            <Text style={styles(theme).title}>SmartSpace</Text>
-            <View style={styles(theme).inputContainer}>
-                <InputField placeholder="Enter Mobile No." onInputChange={onUserNameChange} />
-                <InputField placeholder="Password" onInputChange={onPasswordChange} secureTextEntry={true} />
-                <Button buttonText={'Login'} isOpacity={false} underlayColor={theme.accentRGB} activeOpacity={0.6} onButtonClick={onLogin} buttonStyle={styles(theme).loginButton} />
-                <Button buttonText={'Sign Up'} isOpacity={false} underlayColor={theme.accentRGB} activeOpacity={0.6} onButtonClick={onLogin} buttonStyle={styles(theme).signupButton} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+            <View style={styles(theme).container}>
+                {isVisible && <Animated.Text style={styles(theme).title} sharedTransitionTag='title'>Workplace {'\n'}Assistant</Animated.Text>}
+                <View style={styles(theme).inputContainer}>
+                    <InputField placeholder="Employee ID" onBlur={onBlur} onFocus={onFocus} onInputChange={onUserNameChange} />
+                    <InputField placeholder="Password" onBlur={onBlur} onFocus={onFocus} onInputChange={onPasswordChange} secureTextEntry={true} />              
+                </View>
+                <View style={styles(theme).buttonContainer}>
+                    {props.isLoading ? 
+                    <ActivityLoader theme={theme} /> :
+                    <Button 
+                        buttonText={'Login'} isOpacity={false} underlayColor={theme.accent} 
+                        activeOpacity={0.6} onButtonClick={onLogin} 
+                        buttonStyle={styles(theme).loginButton} isDisabled={!userID || !password}/>}
+                    <View style={{ paddingVertical: 10, flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text style={{ fontFamily: 'ProductSans', fontSize: 16, color: theme.white }}>Not a member yet?</Text>
+                        <TouchableOpacity style={{ paddingHorizontal: 10}} onPress={onSignUp}>
+                            <Text style={{ fontFamily: 'ProductSansBold', fontSize: 16, color: theme.primary, textDecorationLine: 'underline' }}>Register</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {
+                props.loginError &&
+                <Text style={styles(theme).error}>{props.loginError}</Text>
+                }
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 
 }
@@ -59,7 +83,9 @@ const LoginScreen = (props) => {
 function mapStateToProps(state) {
     return {
         isDarkMode: state.settings.isDarkMode,
-        isLoggedIn: state.settings.isLoggedIn
+        isLoggedIn: state.settings.isLoggedIn,
+        loginError: state.auth.loginError,
+        isLoading: state.auth.isLoading
     };
 }
 
@@ -96,38 +122,42 @@ const styles = (theme) => StyleSheet.create({
         right: 10
     },
     title: {
-        fontSize: 24,
+        fontSize: 32,
         fontFamily: 'ProductSansBold',
-        color: theme.white
+        color: theme.primary,
+        textAlign: 'center',
+        position: 'absolute',
+        top: 20
     },
     inputContainer: {
-        height: height/2.5,
-        width: width,
+        height: height/3,
+        width,
         padding: 20,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginTop: 30
+    },
+    buttonContainer: {
+        height: 250,
+        width,
+        padding: 50,
+        justifyContent: 'center'
     },
     loginButton: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 120,
-        height: 40,
+        height: 50,
+        width: width - 40,
         alignSelf: 'center',
         borderColor: theme.primary,
         backgroundColor: theme.primary,
-        borderWidth: 2,
-        borderRadius: 25,
-        textColor: theme.white
+        borderWidth: 1,
+        borderRadius: 10,
+        textColor: theme.white,
+        margin: 12
     },
-    signupButton: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 120,
-        height: 40,
-        alignSelf: 'center',
-        borderColor: theme.primary,
-        borderWidth: 2,
-        borderRadius: 25,
-        textColor: theme.white
+    error: {
+        fontSize: 18,
+        fontFamily: 'ProductSansBold',
+        color: theme.white
     }
 })

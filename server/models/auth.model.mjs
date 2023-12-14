@@ -1,19 +1,23 @@
 class User {
-  constructor( username, password, role = "employee", name = "", org = "") {
-    this.username = username;
+  constructor( userID, password, role = "employee", firstName = "", lastName="", isManager=false, delegates=[]) {
+    this.userID = userID;
     this.password = password;
     this.role = role;
-    this.name = name;
-    this.org = org;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.isManager = isManager;
+    this.delegates = delegates;
   }
 
   toJSON() {
     return {
-      name: this.name,
+      userID: this.userID,
+      firstName: this.name,
+      lastName: this.lastName,
       password: this.password,
       role: this.role,
-      name: this.name,
-      org: this.org
+      isManager: this.isManager,
+      delegates: this.delegates
     };
   }
 }

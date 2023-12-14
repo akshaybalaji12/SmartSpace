@@ -8,8 +8,9 @@ class SeatRouter {
   getRouter() {
     const router = express.Router();
     router.post("/bookSeat", this.seatController.bookSeat);
-    router.get("/bookings/:userID&:date", this.seatController.getBookings);
-    router.get("/:date", this.seatController.getSeats);
+    router.get("/bookings/:userID", this.seatController.getBookings);
+    router.post("/availability", this.seatController.getSeats);
+    router.post("/modifyBooking", this.seatController.modifyBooking);
     return router;
   }
 }

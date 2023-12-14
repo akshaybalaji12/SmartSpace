@@ -2,18 +2,29 @@ import { Dimensions } from "react-native";
 
 export const { width , height } = Dimensions.get("window");
 
-export const ColorModes = {
+//export const BASE_URL = "http://10.86.146.224:6969/"
+export const BASE_URL = "http://192.168.1.12:6969/"
+
+export const MONTHS = [
+    '', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+]
+
+export const COLOR_MODES = {
 
     dark: {
         white: "#fafafa",
         whiteRGB: "rgba(250, 250, 250, 0.5)",
-        background: "#0e0f10",
-        backgroundRGB: "rgba(14,15,16, 0.5)",
+        background: "#121212",
+        surface: "#2e2e2e",
         keyboardDefault: "#5e666a",
         outline: "#5e666a",
-        primary: "#4acfac",
-        accent: "#7df5d5",
-        accentRGB: "rgba(74, 207, 172, 0.5)"     
+        primary: "#9d4dff",
+        primaryFade: "#7f6d94",
+        accent: "#d0acfc",
+        accentRGB: "rgba(203, 169, 245, 0.5)",
+        error: "#cf6679",
+        active: "#24b593",
+        upcoming: "#ffb347"
     },
 
     light: {
@@ -23,14 +34,74 @@ export const ColorModes = {
         backgroundRGB: "rgba(255,255,255, 0.5)",
         keyboardDefault: "#5e666a",
         outline: "#000000",
-        primary: "#4acfac",
-        accent: "#7df5d5",
-        accentRGB: "rgba(74, 207, 172, 0.5)"
+        primary: "#9d4dff",
+        accent: "#af6ffc",
+        accentRGB: "rgba(203, 169, 245, 0.5)",
+        error: "#cf6679"
     }
 
 }
 
 export const ACTION_TYPES = {
-    isLoggedIn: "SET_LOGGED_IN",
-    darkMode: "SET_DARK_MODE"
+    SET_LOGGED_IN_USER: "SET_LOGGED_IN_USER",
+    SET_LOGGED_IN: "SET_LOGGED_IN",
+    SET_DARK_MODE: "SET_DARK_MODE",
+    LOGIN_REQUEST: "LOGIN_REQUEST",
+    LOGIN_REQUEST_SUCCESS: "LOGIN_REQUEST_SUCCESS",
+    LOGIN_REQUEST_FAILURE: "LOGIN_REQUEST_FAILURE",
+    SIGNUP_REQUEST: "SIGNUP_REQUEST",
+    SIGNUP_REQUEST_SUCCESS: "SIGNUP_REQUEST_SUCCESS",
+    SIGNUP_REQUEST_FAILURE: "SIGNUP_REQUEST_FAILURE",
+    CLEAR_AUTH_ERROR: "CLEAR_AUTH_ERROR",
+    FLOOR_PLAN_REQUEST: "FLOOR_PLAN_REQUEST",
+    FLOOR_PLAN_REQUEST_SUCCESS: "FLOOR_PLAN_REQUEST_SUCCESS",
+    SET_BOOKING_DATA: "SET_BOOKING_DATA",
+    BOOKING_REQUEST: "BOOKING_REQUEST",
+    BOOKING_REQUEST_SUCCESS: "BOOKING_REQUEST_SUCCESS",
+    BOOKING_REQUEST_FAILURE: "BOOKING_REQUEST_FAILURE",
+    CLEAR_BOOKING_ERROR: "CLEAR_BOOKING_ERROR",
+    NEW_BOOKING_REQUEST: "NEW_BOOKING_REQUEST",
+    NEW_BOOKING_REQUEST_SUCCESS: "NEW_BOOKING_REQUEST_SUCCESS",
+    NEW_BOOKING_REQUEST_FAILURE: "NEW_BOOKING_REQUEST_FAILURE",
+    MODIFY_BOOKING_REQUEST: "MODIFY_BOOKING_REQUEST",
+    MODIFY_BOOKING_REQUEST_SUCCESS: "MODIFY_BOOKING_REQUEST_SUCCESS",
+    MODIFY_BOOKING_REQUEST_FAILURE: "MODIFY_BOOKING_REQUEST_FAILURE",
+    BOOKING_AVAILABILITY_REQUEST: "BOOKING_AVAILABILITY_REQUEST",
+    BOOKING_AVAILABILITY_REQUEST_SUCCESS: "BOOKING_AVAILABILITY_REQUEST_SUCCESS",
+    BOOKING_AVAILABILITY_REQUEST_FAILURE: "BOOKING_AVAILABILITY_REQUEST_FAILURE",
+    DELEGATES_REQUEST: "DELEGATES_REQUEST",
+    DELEGATES_REQUEST_SUCCESS: "DELEGATES_REQUEST_SUCCESS",
+    DELEGATES_REQUEST_FAILURE: "DELEGATES_REQUEST_FAILURE",
+    STATISTICS_REQUEST: "STATISTICS_REQUEST",
+    STATISTICS_REQUEST_SUCCESS: "STATISTICS_REQUEST_SUCCESS",
+    STATISTICS_REQUEST_FAILURE: "STATISTICS_REQUEST_FAILURE",
+    VISITOR_REQUEST: "VISITOR_REQUEST",
+    VISITOR_REQUEST_SUCCESS: "VISITOR_REQUEST_SUCCESS",
+    VISITOR_REQUEST_FAILURE: "VISITOR_REQUEST_FAILURE",
+    NEW_VISITOR_REQUEST: "NEW_VISITOR_REQUEST",
+    NEW_VISITOR_REQUEST_SUCCESS: "NEW_VISITOR_REQUEST_SUCCESS",
+    NEW_VISITOR_REQUEST_FAILURE: "NEW_VISITOR_REQUEST_FAILURE",
+    ADMIN_APPROVAL_REQUEST: "ADMIN_APPROVAL_REQUEST",
+    ADMIN_APPROVAL_REQUEST_SUCCESS: "ADMIN_APPROVAL_REQUEST_SUCCESS",
+    ADMIN_APPROVAL_REQUEST_FAILURE: "ADMIN_APPROVAL_REQUEST_FAILURE",
+    ADMIN_APPROVAL_ACTION_REQUEST: "ADMIN_APPROVAL_ACTION_REQUEST",
+    ADMIN_APPROVAL_ACTION_REQUEST_SUCCESS: "ADMIN_APPROVAL_ACTION_REQUEST_SUCCESS",
+    ADMIN_APPROVAL_ACTION_REQUEST_FAILURE: "ADMIN_APPROVAL_ACTION_REQUEST_FAILURE",
+    LOGOUT: "LOGOUT"
+}
+
+export const ENDPOINTS = {
+    login: "auth/loginUser",
+    signUp: "auth/signUp",
+    floorPlan: "metadata/floorPlan",
+    bookings: "seat/bookings",
+    seatAvailability: "seat/availability",
+    bookSeat: "seat/bookSeat",
+    modifyBooking: "seat/modifyBooking",
+    getDelegates: "user/getDelegates",
+    getStatistics: "user/getStatistics",
+    raiseVisitorAccess: "visitor/raiseVisitorAccess",
+    getVisitorRequests: "visitor/",
+    getAdminApprovals: "visitor/approvals",
+    adminAction: "visitor/adminAction"
 }

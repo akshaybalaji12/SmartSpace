@@ -1,13 +1,13 @@
 #!/bin/sh
 cd controllers
-touch metadata.controller.mjs
+touch visitors.controller.mjs
 cd ../models
-touch metadata.model.mjs
+touch visitors.model.mjs
 cd ../modules
-touch metadata.module.mjs
+touch visitors.module.mjs
 cd ../routes
-touch metadata.router.mjs
+touch visitors.router.mjs
 cd ../services
-touch metadata.service.mjs
+touch visitors.service.mjs
 
 echo "Files created successfully!"

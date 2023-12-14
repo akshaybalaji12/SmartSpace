@@ -8,14 +8,14 @@ class AuthService {
     }
   
     loginUser =  async(user) => {
-        const { username, password } = user;
+        const { userID, password } = user;
 
         let collection = await database.collection("users");
         const loggingUser = await collection.findOne({
-            "username": username
+            "userID": userID.toLowerCase()
         });
 
-        if(!loggingUser) return "Username not found!";
+        if(!loggingUser) return "User ID not found!";
 
         const isMatch = await bcrypt.compare(password, loggingUser?.password)
         if(isMatch) {
@@ -27,14 +27,14 @@ class AuthService {
     };
   
     createUser = async(user) => {
-        const { username, password } = user;
+        const { userID, password } = user;
         let collection = await database.collection("users");
         let isUserPresent = await collection.findOne({
-            "username": username
+            "userID": userID
         });
 
         if(isUserPresent) {
-            return "Username already present";
+            return "User ID already present";
         } else {
             const result = await new Promise((resolve, reject) => {
                 bcrypt.hash(password, SALT_ROUNDS, async (err, hash) => {                      

@@ -4,9 +4,16 @@ class MetadataService {
     constructor() {
     }
   
-    getEmployees =  async() => {
+    /* getEmployers =  async() => {
         let collection = await database.collection("metadata");
-        const options = { projection: { _id: 0, employees: 1 } };
+        const options = { projection: { _id: 0, employers: 1 } };
+        let metadata = await collection.find({}, options).toArray();
+        return metadata;
+    }; */
+  
+    getFloorPlan =  async() => {
+        let collection = await database.collection("metadata");
+        const options = { projection: { _id: 0, floors: 1 } };
         let metadata = await collection.find({}, options).toArray();
         return metadata;
     };

@@ -7,8 +7,8 @@ class AuthController {
   }
 
   createUser = async (req, res) => {
-    const { username, password, role, name, org } = req.body;
-    const user = new User(username, password, role, name, org);
+    const { userID, password, role, firstName, lastName } = req.body;
+    const user = new User(userID, password, role, firstName, lastName);
     let result = await this.authService.createUser(user);
     let response;
     if(typeof result === 'string') {
@@ -21,8 +21,8 @@ class AuthController {
   };
 
   loginUser = async (req, res) => {
-    const { username, password } = req.body;
-    const user = new User(username, password);
+    const { userID, password } = req.body;
+    const user = new User(userID, password);
     let result = await this.authService.loginUser(user);
     let response;
     if(typeof result === 'string') {
